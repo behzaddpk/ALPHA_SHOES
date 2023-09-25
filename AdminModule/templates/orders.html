@@ -1,0 +1,86 @@
+{% extends "Dashboard.html" %}
+{% load static %}
+
+{% block Dashboard %}
+
+<div class="page-wrapper">
+	<!-- ============================================================== -->
+	<!-- Bread crumb and right sidebar toggle -->
+	<!-- ============================================================== -->
+	<div class="page-breadcrumb">
+		<div class="row align-items-center">
+			<div class="col-5">
+				<h4 class="page-title"></h4>
+				<div class="d-flex align-items-center">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="{% url "Dashboard" %}">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Orders</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<!-- column -->
+			<div class="col-12">
+				<div class="card">
+					<div class="card-body">
+						<!-- title -->
+						<div class="d-md-flex">
+							<div>
+								<h4 class="card-title">All Orders</h4>
+
+							</div>
+							
+						</div>
+						<!-- title -->
+					</div>
+					<div class="table-responsive">
+						<table class="table v-middle">
+							<thead>
+								<tr class="bg-light">
+									<th class="border-top-0">ID</th>
+									<th class="border-top-0">Customer</th>
+									<th class="border-top-0">Product</th>
+									<th class="border-top-0">Product Img</th>
+									<th class="border-top-0">Order Date</th>
+									<th class="border-top-0">Status</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								{% for ord in order %}
+								<tr>
+									<td><a href='{% url "orderdetail" ord.id %}'>{{ord.id}}</a></td>
+										
+									
+									<td>{{ord.user.username}}</td>
+
+									<td>{{ord.product.product.title}}</td>
+									<td>
+										<img src="{{ord.product.product.product_img.url}}" height='100' width='100'>  
+									</td> 
+									<td>{{ord.oder_date}}</td>
+									<td>{{ord.status}}</td>
+									
+								</tr>
+								{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- Table -->
+		<!-- ============================================================== -->
+
+	</div>
+</div>
+{% endblock Dashboard %}

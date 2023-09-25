@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<p class="bread"><span><a href="">Home</a></span> / <span>Checkout</span></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="colorlib-product">
+	<div class="container">
+		<div class="row row-pb-lg">
+			<div class="col-sm-10 offset-md-1">
+				<div class="process-wrap">
+					<div class="process text-center active">
+						<p><span>01</span></p>
+						<h3>Shopping Cart</h3>
+					</div>
+					<div class="process text-center active">
+						<p><span>02</span></p>
+						<h3>Checkout</h3>
+					</div>
+					<div class="process text-center">
+						<p><span>03</span></p>
+						<h3>Order Complete</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				{% if messages %}
+				{% for message in messages %}
+				<p {% if message.tags %} class='alert alert-{{message.tags}} mb-5'{% endif %}>{{message}}</p>
+				{% endfor %}
+				{% endif %}
+				<form method="post" action='{% url "address" %}' class="colorlib-form">
+					{% csrf_token %}
+					<h2>Billing Details</h2>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="fname">First Name</label>
+								<input type="text"  id="fname" name='fname' class="form-control"
+									placeholder="Your firstname">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="lname">Last Name</label>
+								<input type="text" id="lname" name='lname' class="form-control"
+									placeholder="Your lastname">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="fname">Address</label>
+								<input type="text" id="address" name='address' class="form-control" placeholder="Enter Your Address">
+							</div>
+
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="country">Select State/Province</label>
+								<div class="form-field">
+									<i class="icon icon-arrow-down3"></i>
+									<select name="state" id="people" class="form-control">
+										<option value="#">Select State/Province</option>
+										<option value="Punjab">Punjab</option>
+										<option value="Sindh">Sindh</option>
+										<option value="KPK">KPK</option>
+										<option value="Blochistan">Blochistan</option>
+										<option value="Kashmir">Kashmir</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="lname">Phone No</label>
+								<input type="text" id="contact" name='contact' class="form-control"
+									placeholder="Contact No">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-right">
+							<button class='btn btn-primary' type='submit'>Add Address</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="cart-detail">
+							<h2>Cart Total</h2>
+							<ul>
+								{% for cart in cartitem %}
+								<li>
+									<ul>
+										<li><span>{{cart.quantity}} X {{cart.product.product.title}}</span> <span>Rs.
+												{{cart.product.product.price}}</span></li>
+									</ul>
+								</li>
+								{% endfor %}
+								<li><span>Subtotal</span> <span>Rs.{{Initialprice}}</span></li>
+								<li><span>Shipping</span> <span>Rs.{{deliveryprice}}</span></li>
+								<li><span>Order Total</span> <span>Rs.{{amount}}</span></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="w-100"></div>
+					<div class="col-md-12">
+						<div class="cart-detail">
+							<h2>Address</h2>
+							{% if address %}
+							{% for ad in address %}
+							<form action="/CompleteOrder">
+								<div class="card">
+								  <div class="card-body">
+								  <h5>{{ ad.fname }} {{ ad.lname }}</h5>
+								  <p>{{ ad.address}} {{ ad.state }}</p>
+								  <p>{{ ad.contact}}</p>
+								  </div>
+								</div>
+								  <div class="form-check mt-2 mb-5">
+									<input name='address' id='custadd{{forloop.counter}}' class="form-check-input" type="radio" value="{{ ad.id }}">
+									<label class="form-check-label fw-bold" for="custadd{{forloop.counter}}">
+									  Address: {{ forloop.counter }} </label>
+								  </div>
+								  <div class="text-end">
+									<button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Complte Order</button>
+								  </div>
+								</form>
+							{% endfor %}
+							{% endif %}
+							
+						</div>
+					</div>
+				</div>
+				
+		</div>
+	</div>
+</div>
+{%endblock%}

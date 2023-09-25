@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+		<div class="breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p class="bread"><span><a href="index.html">Home</a></span> / <span>Men</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="breadcrumbs-two">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="breadcrumbs-img" style="background-image: url({% static 'images/cover-img-1.jpg' %});">
+							<h2>Men's</h2>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="colorlib-featured">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 text-center">
+						<div class="featured">
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'images/men.jpg' %});">
+								<h2>Casuals</h2>
+								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 text-center">
+						<div class="featured">
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'images/women.jpg' %});">
+								<h2>Dress</h2>
+								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 text-center">
+						<div class="featured">
+							<div class="featured-img featured-img-2" style="background-image: url({% static 'images/item-11.jpg' %});">
+								<h2>Sports</h2>
+								<p><a href="#" class="btn btn-primary btn-lg">Shop now</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="colorlib-product">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
+						<h2>View All Products</h2>
+					</div>
+				</div>
+				<div class="row row-pb-md ">
+					{% for prod in product %}
+					<div class="col-md-3 col-lg-3 mb-4 text-center d-inline">
+						<div class="product-entry border">
+							<a href="#" class="prod-img">
+								<img src="{{prod.product_img.url}}" class="img-fluid" alt="" height='200' width='200'>
+							</a>
+							<div class="desc">
+								<h2><a href="{% url "productdetail" prod.id %}">{{prod.title}}</a></h2>
+								<span class="price">Rs.{{prod.price}}</span>
+							</div>
+						</div>
+					</div>
+					
+					{% endfor %}
+				</div>
+				
+			</div>
+		</div>
+
+		
+{%endblock%}
+
